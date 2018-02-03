@@ -2,12 +2,16 @@
 import express from 'express';
 import path from 'path';
 import sass from 'node-sass-middleware';
+import mongoose from 'mongoose';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.dev.js';
 
 const app = express();
+
+// Connect to database
+mongoose.connect('mongodb://127.0.0.1:27017/traveler');
 
 
 // Configuration
