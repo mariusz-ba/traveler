@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 
 // Components
@@ -14,10 +13,6 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <div>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </div>
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
         </div>
