@@ -1,44 +1,27 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { centerMap } from '../../actions/mapActions';
 
-export default class Map extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentLocation: {
-        lat: 50.0646501,
-        lng: 19.9449799
-      },
-      markers: [
-        {lat: 50.0646501, lng: 19.9449799},
-        {lat: 50.0646501, lng: 20.9449799}
-      ]
-    }
-
-    this.markers = [];
-  }
+class Map extends Component {
 
   componentDidMount() {
+    // Load script from google maps api
     this.script = document.createElement('script');
     this.script.type = 'text/javascript';
     this.script.async = true;
     this.script.src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDb7Y4wCbvgGbiTmP2z4ZPJBp01g2HvM1Y';
     this.script.onload = this.script.onreadystatechange = () => {
-      const { currentLocation } = this.state;
-
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          location => this.setState({
-            currentLocation: {
-              lat: location.coords.latitude,
-              lng: location.coords.longitude
-            }
+          location => this.props.centerMap({
+            lat: location.coords.latitude,
+            lng: location.coords.longitude
           })
         )
       }
 
       this.google = google;
-      this.map = new google.maps.Map(this.node, { zoom: 16, center: currentLocation });
+      this.map = new google.maps.Map(this.node, { zoom: 2, center: this.props.map.center });
     } 
     // Add script to the DOM
     document.body.appendChild(this.script);
@@ -49,21 +32,13 @@ export default class Map extends Component {
     document.body.removeChild(this.script);
   }
 
-  componentWillUpdate() {
-    const { markers } = this.state;
-    this.clearOverlays();
-    markers.forEach(marker => {
-      this.markers.push(new google.maps.Marker({
-        position: marker,
-        map: this.map
-      }))
-    })
-  }
-
-  // Remove all markers from the map
-  clearOverlays() {
-    this.markers.forEach(marker => marker.setMap(null));
-    this.markers.length = 0;
+  componentDidUpdate(prevProps) {
+    if(prevProps.map.center !== this.props.map.center) {
+      // Center the map accordingly to new location
+      const { lat, lng } = this.props.map.center;
+      const center = new google.maps.LatLng(lat, lng);
+      this.map.panTo(center);
+    }
   }
 
   render() {
@@ -74,3 +49,7 @@ export default class Map extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ map }) => ({ map });
+
+export default connect(mapStateToProps, { centerMap })(Map);

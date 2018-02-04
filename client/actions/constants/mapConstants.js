@@ -1,0 +1,2 @@
+// MAP ACTIONS
+export const CENTER_MAP = 'CENTER_MAP';
