@@ -3,7 +3,65 @@
 
   li {
     margin-bottom: 10px;
-    box-shadow: 0 0 5px;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px #ccc;
+    transition: 0.3s linear all;
+    background: white;
+    position: relative;
+
+    &:hover {
+      box-shadow: 0 2px 5px #999;
+    }
+
+    .list-item {
+      text-decoration: none;
+      color: black;
+      padding: 5px 10px;
+      min-height: 80px;
+
+      display: grid;
+      grid-template-columns: 80px auto 80px;
+
+      &::before {
+        position: absolute;
+        width: 5px;
+        height: 100%;
+        content: '';
+        background: lightseagreen;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+
+      .carrier-logo-container {
+        background: url('/img/carrier-icon.png');
+        background-size: 48px 48px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .carrier-description {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        line-height: 40px;
+
+        .carrier-stop {
+          color: #666;
+        }
+      }
+
+      .carrier-directions {
+        text-align: center;
+        font-weight: bold;
+
+        line-height: 27px;
+        
+        carrier-direction-indicator-both {
+          display: block;
+        }
+      }
+    }
+
+    
 
     &:last-of-type {
       margin-bottom: 0;
