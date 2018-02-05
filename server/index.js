@@ -43,3 +43,12 @@ module.exports = app.listen(
   app.get('port'),
   () => console.log(`Running on localhost:${app.get('port')}`)
 );
+
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  if(res.headersSent)
+    return next(err);
+
+  res.status(500).res.json({ error: err });
+})
