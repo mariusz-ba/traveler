@@ -14,6 +14,10 @@ const app = express();
 mongoose.connect('mongodb://127.0.0.1:27017/traveler');
 
 
+// Routes
+import carriers from './src/routes/carriers';
+
+
 // Configuration
 app.disable('x-powered-by');
 app.set('port', process.env.PORT || 3000);
@@ -30,6 +34,10 @@ app.use(sass({
   prefix: '/css'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// API
+app.use('/api/carriers', carriers);
 
 
 // Main
