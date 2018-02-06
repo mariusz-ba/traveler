@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Map from '../components/map/Map';
-import Navbar from '../components/navbar/Navbar';
 
 import Carrier from './carriers/Carrier';
 import CarriersList from './carriers/CarriersList';
@@ -12,7 +11,6 @@ export default class Home extends Component {
   render() {
     return (
       <div className="home-layout">
-        <Navbar/>
         <div className="home-left">
           <Switch>
             <Route exact path="/" component={LocalCarriers}/>

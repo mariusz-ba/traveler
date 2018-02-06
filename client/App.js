@@ -8,11 +8,14 @@ import {
 import About from './pages/About';
 import Home from './pages/Home';
 
+import Navbar from './components/navbar/Navbar';
+
 export default class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="app-container">
+          <Navbar/>
           <Route path="/about" component={About}/>
           <Route path="/" component={Home}/>
         </div>

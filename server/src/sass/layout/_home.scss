@@ -1,9 +1,8 @@
 .home-layout {
   height: 100%;
   display: grid;
-  grid-template-areas: "navbar navbar"
-                       "content map";
-  grid-template-rows: 80px auto;
+  grid-template-areas: "content map";
+  grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   
   .home-left {
@@ -19,7 +18,6 @@
 // Use slightly bigger brakpoint for that
 @media only screen and (max-width: 320px) {
   .home-layout {
-    grid-template-areas: "navbar navbar"
-                         "content content";
+    grid-template-areas: "content content";
   }
 }

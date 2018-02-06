@@ -1,2 +1,9 @@
 @import '_home';
 @import '_about';
+
+.app-container {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
