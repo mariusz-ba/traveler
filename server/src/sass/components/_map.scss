@@ -1,4 +1,6 @@
+@import '../base/_theme';
+
 .map {
   height: 100%;
-  background: lightsteelblue;
+  background: $secondary-background-color;
 }

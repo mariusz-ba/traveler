@@ -1,5 +1,7 @@
+@import '../base/_theme';
+
 .navbar {
-  background: #333;
-  color: white;
+  background: $primary-background-color;
+  color: $primary-color;
   height: 66px;
 }
