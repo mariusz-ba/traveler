@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import sass from 'node-sass-middleware';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -34,6 +35,10 @@ app.use(sass({
   prefix: '/css'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 // API
