@@ -4,4 +4,24 @@
   background: $primary-background-color;
   color: $primary-color;
   height: 66px;
+  line-height: 66px;
+  box-sizing: border-box;
+  padding: 0 10px;
+
+  a { 
+    text-decoration: none;
+    color: $primary-color;
+  }
+
+  .navbar-brand {
+    font-size: 1.3em;
+    font-weight: bold;
+
+  }
+
+  .navbar-brand-aside {
+    margin-left: 10px;
+    font-size: .87em;
+    color: $secondary-color;
+  }
 }

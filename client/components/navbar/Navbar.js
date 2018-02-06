@@ -6,8 +6,11 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar">
         <Link className="navbar-brand" to="/">Traveler</Link>
-        <Link to="/carriers">Carriers List</Link>
-        <Link to="/carriers/1">Carrier Timetable</Link>
+        <span className="navbar-brand-aside">Find the Route</span>
+        <ul>
+          <Link to="/carriers">Carriers List</Link>
+          <Link to="/carriers/1">Carrier Timetable</Link>
+        </ul>
       </nav>
     )
   }
