@@ -20,14 +20,10 @@ export default class LocalCarriers extends Component {
       </li>
     )
 
-    const items = new Array(10).fill(listItem);
-
     return (
       <div className="local-carriers">
         <ul>
-          {
-            items
-          }
+          { listItem }
         </ul>
       </div>
     )
