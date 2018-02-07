@@ -17,6 +17,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/traveler');
 
 // Routes
 import carriers from './src/routes/carriers';
+import stops from './src/routes/stops';
 
 
 // Configuration
@@ -43,6 +44,7 @@ app.use(bodyParser.urlencoded({
 
 // API
 app.use('/api/carriers', carriers);
+app.use('/api/stops', stops);
 
 
 // Main
@@ -63,5 +65,5 @@ app.use((err, req, res, next) => {
   if(res.headersSent)
     return next(err);
 
-  res.status(500).res.json({ error: err });
+  res.status(500).json({ error: err });
 })
