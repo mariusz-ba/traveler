@@ -7,21 +7,51 @@
   line-height: 66px;
   box-sizing: border-box;
   padding: 0 10px;
+  display: flex;
+  flex-direction: row;
 
   a { 
     text-decoration: none;
     color: $primary-color;
   }
 
-  .navbar-brand {
+  .navbar__wrapper { flex: 1; }
+  .navbar__brand {
     font-size: 1.3em;
     font-weight: bold;
 
   }
-
-  .navbar-brand-aside {
+  .navbar__description {
     margin-left: 10px;
     font-size: .87em;
     color: $secondary-color;
+  }
+
+  .navbar__menu { 
+    flex: 1;
+    text-align: right;
+
+    .navbar__link {
+      display: inline-block;
+      font-size: 0.87em;
+      margin-left: 10px;
+
+      a {
+        padding: 5px 15px;
+        border-radius: 15px;
+        background: lightseagreen;
+        color: $primary-background-color;
+
+        transition: 0.2s ease-in-out all;
+      
+        &:hover {
+          box-shadow: 1px 2px 2px #666;
+        }
+
+        &:active {
+          box-shadow: inset -1px -2px 2px #666;
+        }
+      }
+    }
   }
 }
