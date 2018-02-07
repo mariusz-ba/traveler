@@ -1,8 +1,9 @@
 @import '../base/_theme';
 
 .navbar {
-  background: $primary-background-color;
-  color: $primary-color;
+  background: $navbar-primary-background;
+  color: $navbar-font-color;
+
   height: 66px;
   line-height: 66px;
   box-sizing: border-box;
@@ -12,19 +13,19 @@
 
   a { 
     text-decoration: none;
-    color: $primary-color;
+    color: $navbar-font-color;
   }
 
   .navbar__wrapper { flex: 1; }
   .navbar__brand {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: bold;
 
   }
   .navbar__description {
     margin-left: 10px;
     font-size: .87em;
-    color: $secondary-color;
+    color: $navbar-font-color;
   }
 
   .navbar__menu { 
@@ -33,23 +34,17 @@
 
     .navbar__link {
       display: inline-block;
-      font-size: 0.87em;
-      margin-left: 10px;
+      font-weight: bold;
 
       a {
-        padding: 5px 15px;
-        border-radius: 15px;
-        background: lightseagreen;
-        color: $primary-background-color;
-
-        transition: 0.2s ease-in-out all;
+        padding: 10px 15px;
+        border-radius: 3px;
+        color: $navbar-font-color;
+        transition: 0.1s ease-in-out all;
       
         &:hover {
-          box-shadow: 1px 2px 2px #666;
-        }
-
-        &:active {
-          box-shadow: inset -1px -2px 2px #666;
+          background: $navbar-secondary-background;
+          box-shadow: inset 0 0 2px #666;
         }
       }
     }
