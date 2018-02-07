@@ -28,6 +28,10 @@ export default function reducer(state = initial_state, action) {
       state = { ...state, isFetching: false, errors: action.payload }
       break;
     }
+    case TYPES.SIGN_OUT: {
+      state = initial_state;
+      break;
+    }
     default: {}
   }
   return state;

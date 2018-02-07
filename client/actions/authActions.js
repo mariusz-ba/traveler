@@ -31,3 +31,15 @@ export const setCurrentUser = (user) => ({
   type: TYPES.SET_CURRENT_USER,
   payload: user
 })
+
+export const signOut = () => {
+  return dispatch => {
+    localStorage.removeItem('jwtToken');
+    setAuthorizationToken(false);
+    dispatch(onSignOut());
+  }
+}
+
+export const onSignOut = () => ({
+  type: TYPES.SIGN_OUT
+})
