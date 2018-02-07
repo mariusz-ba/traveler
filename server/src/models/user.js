@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function(next) {
   bcrypt.hash(this.password, saltRounds, (error, hash) => {
     if(error) return next(error);
 

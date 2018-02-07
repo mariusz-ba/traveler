@@ -18,6 +18,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/traveler');
 // Routes
 import carriers from './src/routes/carriers';
 import stops from './src/routes/stops';
+import users from './src/routes/users';
+import auth from './src/routes/auth';
 
 
 // Configuration
@@ -45,6 +47,8 @@ app.use(bodyParser.urlencoded({
 // API
 app.use('/api/carriers', carriers);
 app.use('/api/stops', stops);
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 
 // Main
