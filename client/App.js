@@ -9,6 +9,7 @@ import {
 import About from './pages/About';
 import Home from './pages/Home';
 import Signin from './pages/Signin';
+import Signup from './pages/Signup';
 
 import Navbar from './components/navbar/Navbar';
 import Toolbar from './components/toolbar/Toolbar';
@@ -23,6 +24,7 @@ export default class App extends Component {
           <Switch>
             <Route path="/about" component={About}/>
             <Route path="/signin" component={Signin}/>
+            <Route path="/signup" component={Signup}/>
             <Route path="/" component={Home}/>
           </Switch>
         </div>
