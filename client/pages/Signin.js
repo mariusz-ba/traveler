@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signIn } from '../actions/authActions';
+import { withRouter } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
 class Signin extends Component {
   state = {
@@ -19,33 +21,43 @@ class Signin extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { identifier, password } = this.state;
-    this.props.signIn({ identifier, password });
+    this.props.signIn({ identifier, password })
+      .then(() => {
+        if(isEmpty(this.props.auth.errors))
+          this.props.history.push('/');
+      });
   }
 
   render() {
     const { identifier, password } = this.state;
     const { errors } = this.props.auth;
 
+    const errorClass = errors && errors.form ? 'error' : '';
+
     return (
       <div className="signin-container">
-      { errors && errors.form &&
-        <p className="signin-error">{errors.form}</p>
-      }
-        <form>
-          <input 
-            type="text" 
-            placeholder="Username of E-mail"
-            value={identifier}
-            onChange={this.onChangeIdentifier}
-          />
-          <input 
-            type="password" 
-            placeholder="Password"
-            value={password}
-            onChange={this.onChangePassword}
-          />
-          <button type="submit" onClick={this.onSubmit}>Sign in</button>
-        </form>
+        <div className="signin">
+          <form className="signin__form">
+            <input
+              className={`signin__form--identifier ${errorClass}`}
+              type="text" 
+              placeholder="Username of E-mail"
+              value={identifier}
+              onChange={this.onChangeIdentifier}
+            />
+            <input
+              className={`signin__form--password ${errorClass}`}
+              type="password" 
+              placeholder="Password"
+              value={password}
+              onChange={this.onChangePassword}
+            />
+            <button
+              className="signin__form--submit"
+              type="submit" 
+              onClick={this.onSubmit}>Sign in</button>
+          </form>
+        </div>
       </div>
     )
   }
@@ -53,4 +65,4 @@ class Signin extends Component {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { signIn })(Signin);
+export default withRouter(connect(mapStateToProps, { signIn })(Signin));
