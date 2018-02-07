@@ -12,7 +12,6 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 
 import Navbar from './components/navbar/Navbar';
-import Toolbar from './components/toolbar/Toolbar';
 
 export default class App extends Component {
   render() {
@@ -20,7 +19,6 @@ export default class App extends Component {
       <Router>
         <div className="app-container">
           <Navbar/>
-          <Toolbar/>
           <Switch>
             <Route path="/about" component={About}/>
             <Route path="/signin" component={Signin}/>
