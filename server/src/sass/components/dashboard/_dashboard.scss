@@ -1,0 +1,45 @@
+@import '../../base/_theme';
+
+.dashboard {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+
+  .dashboard__menu {
+    background: #333;
+
+    .dashboard__item {
+      display: flex;
+      .dashboard__link {
+        color: $navbar-font-color;
+        text-decoration: none;
+        flex: 1;
+        padding: 15px 10px;
+        font-weight: bold;
+
+        &:hover {
+          background: $navbar-secondary-background;
+        }
+      }
+    }
+  }
+
+  .dashboard__panel {
+    .dashboard__header {
+      padding: 15px 10px;
+      background: $navbar-secondary-background;
+      color: $navbar-font-color;
+
+      .dashboard__heading {
+        
+      }
+
+      .dashboard__location {
+        font-size: 0.83em;
+      }
+    }
+    .dashboard__content {
+      padding: 10px;
+    }
+  }
+}
