@@ -1,0 +1,40 @@
+// Stops list page
+.dashboard-stopslist {
+
+  .stopslist__actions {
+    padding: 15px 10px;
+    border-bottom: 1px solid #333;
+  }
+  .stopslist__content {
+    padding: 10px;
+    .stopslist__table {
+      width: 100%;
+      border: 1px solid black;
+      border-collapse: collapse;
+
+      thead {
+        background: #333;
+        color: #fff;
+        th { 
+          font-size: 1.2em;
+          font-weight: bold;
+          text-align: left;
+          padding: 15px;
+        }
+      }
+      tbody {
+        tr {
+          border-bottom: 1px solid #333;
+
+          td {
+            padding: 15px;
+          }
+
+          &:hover {
+            background: #dadada;
+          }
+        }
+      }
+    }
+  }
+}

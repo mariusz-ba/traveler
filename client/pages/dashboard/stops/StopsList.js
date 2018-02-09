@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStops, deleteStop } from '../../../actions/stopsActions';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class StopsList extends Component {
   componentWillMount() {
@@ -17,7 +17,7 @@ class StopsList extends Component {
           <Link className="btn" to="/dashboard/stops/new">New</Link>
         </div>
         <div className="stopslist__content">
-          <table>
+          <table className="stopslist__table">
             <thead>
               <tr>
                 <th>Name</th>
@@ -34,6 +34,7 @@ class StopsList extends Component {
                     <td>{stop.lat}</td>
                     <td>{stop.lng}</td>
                     <td>
+                      <button onClick={() => this.props.history.push(`/dashboard/stops/${stop._id}`)}>Browse</button>
                       <button>Edit</button>
                       <button onClick={ () => this.props.deleteStop(stop._id) }>Remove</button>
                     </td>
@@ -50,4 +51,4 @@ class StopsList extends Component {
 
 const mapStateToProps = ({ stops }) => ({ stops });
 
-export default connect(mapStateToProps, { fetchStops, deleteStop })(StopsList);
+export default withRouter(connect(mapStateToProps, { fetchStops, deleteStop })(StopsList));
