@@ -1,5 +1,5 @@
 import * as TYPES from '../actions/constants/stopsConstants';
-import {mapKeys} from 'lodash';
+import {mapKeys, omit} from 'lodash';
 
 const initial_state = {
   isFetching: false,
@@ -25,6 +25,11 @@ export default function reducer(state = initial_state, action) {
     case TYPES.RECEIVE_STOPS: {
       // action.payload = [stop, stop, stop]
       state = { ...state, isFetching: false, items: mapKeys(action.payload, '_id') };
+      break;
+    }
+    case TYPES.DELETE_STOP: {
+      // action.payload = id
+      state = { ...state, items: omit(state.items, action.payload) };
       break;
     }
     case TYPES.SET_STOPS_ERRORS: {

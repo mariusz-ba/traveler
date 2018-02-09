@@ -3,4 +3,7 @@ export const REQUEST_STOP = 'REQUEST_STOP';
 export const REQUEST_STOPS = 'REQUEST_STOPS';
 export const RECEIVE_STOP = 'RECEIVE_STOP';
 export const RECEIVE_STOPS = 'RECEIVE_STOPS';
+
+export const DELETE_STOP = 'DELETE_STOP';
+
 export const SET_STOPS_ERRORS = 'SET_STOPS_ERRORS';

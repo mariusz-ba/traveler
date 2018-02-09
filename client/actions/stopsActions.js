@@ -48,6 +48,39 @@ export const receiveStop = (stop) => ({
 })
 
 /**
+ * Creating new stop
+ * @param {Object} stop Data for new stop {name, lat, lng}
+ */
+export const createStop = (stop) => {
+  return dispatch => {
+    // Dispatch action before sending...
+    return axios.post(`/api/stops`, stop)
+      .then(response => dispatch(receiveStop(response.data)))
+      .catch(err => dispatch(setStopsErrors(err.response.data)));
+  }
+}
+
+/**
+ * Delete existing stop by its id
+ * @param {ObjectId} id Stop id
+ */
+export const deleteStop = (id) => {
+  return dispatch => {
+    return axios.delete(`/api/stops/${id}`)
+      .then(response => {
+        if(response.data.n === 1 && response.data.ok === 1)
+          dispatch(deletedStop(id));
+      })
+      .catch(err => dispatch(setStopsErrors(err.response.data)));
+  }
+}
+
+export const deletedStop = (id) => ({
+  type: TYPES.DELETE_STOP,
+  payload: id
+});
+
+/**
  * Setting errors
  */
 export const setStopsErrors = (errors) => ({
