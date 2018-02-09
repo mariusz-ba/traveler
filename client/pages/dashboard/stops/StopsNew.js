@@ -31,12 +31,33 @@ class StopsNew extends Component {
     const { name, lat, lng } = this.state;
     
     return (
-      <div className="dashboard-stopdetails">
-        <form>
-          <input type="text" placeholder="Name" value={name} onChange={this.onChangeName}/>
-          <input type="text" placeholder="Lat" value={lat} onChange={this.onChangeLatitude}/>
-          <input type="text" placeholder="Lng" value={lng} onChange={this.onChangeLongitude}/>
-          <button type="submit" onClick={this.onSubmit}>Create</button>
+      <div className="newstop">
+        <form className="newstop__form">
+          <label>Name
+          <input 
+            className="newstop__form--name"
+            type="text" 
+            placeholder="Name" 
+            value={name} 
+            onChange={this.onChangeName}/></label>
+          <label>Latitude
+          <input 
+            className="newstop__form--latitude"
+            type="text" 
+            placeholder="Lat" 
+            value={lat} 
+            onChange={this.onChangeLatitude}/></label>
+          <label>Longitude
+          <input 
+            className="newstop__form--longitude"
+            type="text" 
+            placeholder="Lng" 
+            value={lng} 
+            onChange={this.onChangeLongitude}/></label>
+          <button 
+            className="newstop__form--submit"
+            type="submit" 
+            onClick={this.onSubmit}>Create</button>
         </form>
       </div>
     )
