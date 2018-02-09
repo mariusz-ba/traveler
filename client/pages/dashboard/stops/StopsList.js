@@ -12,7 +12,7 @@ class StopsList extends Component {
     const { items } = this.props.stops;
 
     return (
-      <div className="dashboard-stopslist">
+      <div className="stopslist">
         <div className="stopslist__actions">
           <Link className="btn" to="/dashboard/stops/new">New</Link>
         </div>

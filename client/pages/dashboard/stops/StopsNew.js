@@ -32,7 +32,6 @@ class StopsNew extends Component {
     
     return (
       <div className="dashboard-stopdetails">
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <form>
           <input type="text" placeholder="Name" value={name} onChange={this.onChangeName}/>
           <input type="text" placeholder="Lat" value={lat} onChange={this.onChangeLatitude}/>

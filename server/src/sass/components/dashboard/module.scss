@@ -1,4 +1,5 @@
+// Main Dashboard style
 @import '_dashboard';
-@import '_overview';
-@import '_carriers';
-@import '_stops';
+
+// Dashboard pages
+@import 'stops/_stopslist';
