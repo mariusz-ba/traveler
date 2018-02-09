@@ -32,7 +32,7 @@ export const fetchStop = (id) => {
   return dispatch => {
     dispatch(requestStop(id));
     return axios.get(`/api/stops/${id}`)
-      .then(response => dispatch(receiveStop(resposne.data)))
+      .then(response => dispatch(receiveStop(response.data)))
       .catch(err => dispatch(setStopsErrors(err.response.data)))
   }
 }
@@ -79,6 +79,19 @@ export const deletedStop = (id) => ({
   type: TYPES.DELETE_STOP,
   payload: id
 });
+
+/**
+ * Update existing stop
+ * @param {ObjectID} id Id of stop to update
+ * @param {Object} stop New stop data
+ */
+export const updateStop = (id, stop) => {
+  return dispatch => {
+    return axios.put(`/api/stops/${id}`, stop)
+      .then(response => dispatch(receiveStop(response.data)))
+      .catch(err => setStopsErrors(err.response.data));
+  }
+}
 
 /**
  * Setting errors
