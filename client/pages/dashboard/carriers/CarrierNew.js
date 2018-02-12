@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+// Editors
+import Endpoints from './editors/Endpoints';
+
 export default class CarrierNew extends Component {
   state = {
     name: '',
@@ -11,16 +14,8 @@ export default class CarrierNew extends Component {
     stopsHolder: []
   }
 
-  onChangeEndpointName(e, index) {
-    const endpoints = this.state.endpoints.slice(0);
-    endpoints[index].name = e.target.value;
-
-    this.setState({
-      endpoints
-    })
-  }
-
-  onNewEndpoint = () => {
+  // Endpoints handlers
+  onCreateEndpoint = () => {
     const endpoints = this.state.endpoints.slice(0);
     endpoints.push({ name: '', stop: '' });
 
@@ -29,22 +24,41 @@ export default class CarrierNew extends Component {
     })
   }
 
-  onChangeEndpointStop = (e, index) => {
-    if(e.target.value) {
+  onChangeEndpointName = (index, name) => {
+    const endpoints = this.state.endpoints.slice(0);
+    endpoints[index].name = name;
+
+    this.setState({
+      endpoints
+    })
+  }
+
+  onChangeEndpointStop = (index, stop) => {
+    if(stop) {
       const endpoints = this.state.endpoints.slice(0);
-      endpoints[index].stop = e.target.value;
+      endpoints[index].stop = stop;
 
       this.setState({
         endpoints
       })
     }
 
-    axios.get('/api/stops', { params: { name: e.target.value }})
+    axios.get('/api/stops', { params: { name: stop }})
       .then(response => this.setState({ stopsHolder: response.data }))
       .catch(err => console.log('An error occurred: ', err));
   }
 
-  // Departures
+  // Timetable handlers
+  onCreateDeparture = () => {
+    const { endpoints } = this.state;
+    const timetable = this.state.timetable.slice(0);
+    timetable.push({ from: 0, to: 1, departureTime: '18:30' });
+
+    this.setState({
+      timetable
+    })
+  }
+
   onChangeDepartureFrom(e, index) {
     const timetable = this.state.timetable.slice(0);
     timetable[index].from = e.target.value;
@@ -66,16 +80,6 @@ export default class CarrierNew extends Component {
   onChangeDepartureTime(e, index) {
     const timetable = this.state.timetable.slice(0);
     timetable[index].departureTime = e.target.value;
-
-    this.setState({
-      timetable
-    })
-  }
-
-  addDeparture = () => {
-    const { endpoints } = this.state;
-    const timetable = this.state.timetable.slice(0);
-    timetable.push({ from: 0, to: 1, departureTime: '18:30' });
 
     this.setState({
       timetable
@@ -108,7 +112,7 @@ export default class CarrierNew extends Component {
     })
   }
 
-  // Stops
+  // Stops handlers
   onChangeStop(e, index) {
     this.setState({
       stops: [
@@ -134,7 +138,6 @@ export default class CarrierNew extends Component {
   onMoveStopDown(index) {
 
   }
-
   deleteStop(index) {
 
   }
@@ -152,7 +155,14 @@ export default class CarrierNew extends Component {
             value={this.state.name}
             onChange={(e) => this.setState({ name: e.target.value })}/>
         </div>
-        <div> {/* Endpoints */}
+        <Endpoints
+          endpoints={endpoints}
+          stops={this.state.stopsHolder}
+          onCreateEndpoint={this.onCreateEndpoint}
+          onChangeName={this.onChangeEndpointName}
+          onChangeStop={this.onChangeEndpointStop}
+        />
+        {/* <div>
           <p>Endpoints</p>
           {
             endpoints.map((endpoint, index) => (
@@ -177,8 +187,8 @@ export default class CarrierNew extends Component {
               ))
             }
           </datalist>
-          <button onClick={this.onNewEndpoint}>New</button>
-        </div>
+          <button onClick={this.onCreateEndpoint}>New</button>
+        </div> */}
         <div> {/* Timetable */}
           <p>Timetable</p>
           <table>
@@ -236,7 +246,7 @@ export default class CarrierNew extends Component {
                 }
             </tbody>
           </table>
-          <button onClick={this.addDeparture}>Add departure</button>
+          <button onClick={this.onCreateDeparture}>Add departure</button>
         </div>
         <div>
           <table>
