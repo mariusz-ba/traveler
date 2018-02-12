@@ -47,6 +47,25 @@ export const receiveCarriers = (carriers) => ({
   payload: carriers
 })
 
+/**
+ * Delete existing carrier
+ * @param {ObjectId} id Carrier id
+ */
+export const deleteCarrier = (id) => {
+  return dispatch => {
+    return axios.delete(`/api/carriers/${id}`)
+      .then(response => {
+        if(response.data.n === 1 && response.data.ok === 1)
+          dispatch(deletedCarrier(id));
+      })
+      .catch(err => dispatch(setCarriersErrors(err.response.data)))
+  }
+}
+
+export const deletedCarrier = (id) => ({
+  type: TYPES.DELETE_CARRIER,
+  payload: id
+});
 
 /**
  * Use this action to set errors that occurred while

@@ -1,5 +1,5 @@
 import * as TYPES from '../actions/constants/carrierConstants';
-import { mapKeys } from 'lodash';
+import { mapKeys, omit } from 'lodash';
 
 const initial_state = {
   isFetching: false,
@@ -25,6 +25,11 @@ export default function reducer(state = initial_state, action) {
     case TYPES.RECEIVE_CARRIERS: {
       // action.payload = [carrier, carrier, carrier]
       state = { ...state, isFetching: false, items: mapKeys(action.payload, '_id') };
+      break;
+    }
+    case TYPES.DELETE_CARRIER: {
+      // action.payload = id
+      state = { ...state, items: omit(state.items, action.payload) };
       break;
     }
     case TYPES.SET_CARRIERS_ERRORS: {
