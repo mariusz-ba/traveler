@@ -2,6 +2,9 @@
 import Carrier from '../models/carrier';
 
 export const getCarriers = (req, res, next) => {
+  // Chekc filter
+  if(req.query)
+    console.log(req.query);
   Carrier.find({})
   .then(carriers => res.status(200).json(carriers))
   .catch(err => next(err));
