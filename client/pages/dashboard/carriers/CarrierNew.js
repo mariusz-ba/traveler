@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Editors
 import Endpoints from './editors/Endpoints';
+import Departures from './editors/Departures';
 
 export default class CarrierNew extends Component {
   state = {
@@ -59,56 +60,30 @@ export default class CarrierNew extends Component {
     })
   }
 
-  onChangeDepartureFrom(e, index) {
+  onChangeDepartureFrom = (index, endpoint) => {
     const timetable = this.state.timetable.slice(0);
-    timetable[index].from = e.target.value;
+    timetable[index].from = endpoint;
 
     this.setState({
       timetable
     })
   }
 
-  onChangeDepartureTo(e, index) {
+  onChangeDepartureTo = (index, endpoint) => {
     const timetable = this.state.timetable.slice(0);
-    timetable[index].to = e.target.value;
+    timetable[index].to = endpoint;
 
     this.setState({
       timetable
     })
   }
 
-  onChangeDepartureTime(e, index) {
+  onChangeDepartureTime = (index, time) => {
     const timetable = this.state.timetable.slice(0);
-    timetable[index].departureTime = e.target.value;
+    timetable[index].departureTime = time;
 
     this.setState({
       timetable
-    })
-  }
-
-  moveDepartureUp(index) {
-    if(index === 0) return;
-
-    this.setState({
-      timetable: [
-        ...this.state.timetable.slice(0, index - 1),
-        this.state.timetable[index],
-        this.state.timetable[index - 1],
-        ...this.state.timetable.slice(index + 1)
-      ]
-    })
-  }
-
-  moveDepartureDown(index) { 
-    if(index === this.state.timetable.length - 1) return;
-
-    this.setState({
-      timetable: [
-        ...this.state.timetable.slice(0, index),
-        this.state.timetable[index + 1],
-        this.state.timetable[index],
-        ...this.state.timetable.slice(index + 2)
-      ]
     })
   }
 
@@ -162,92 +137,14 @@ export default class CarrierNew extends Component {
           onChangeName={this.onChangeEndpointName}
           onChangeStop={this.onChangeEndpointStop}
         />
-        {/* <div>
-          <p>Endpoints</p>
-          {
-            endpoints.map((endpoint, index) => (
-              <div key={index}>
-                <input 
-                  type="text" 
-                  placeholder="Endpoint name" 
-                  value={endpoint.name}
-                  onChange={(e) => this.onChangeEndpointName(e, index)}/>
-                <input 
-                  type="text"
-                  list={`endpoints`} 
-                  value={endpoint.stop}
-                  onChange={(e) => this.onChangeEndpointStop(e, index)}/>
-              </div>
-            ))
-          }
-          <datalist id={`endpoints`}>
-            {
-              this.state.stopsHolder.map(stop => (
-                <option key={stop._id} value={stop._id}>{stop.name}</option>
-              ))
-            }
-          </datalist>
-          <button onClick={this.onCreateEndpoint}>New</button>
-        </div> */}
-        <div> {/* Timetable */}
-          <p>Timetable</p>
-          <table>
-            <thead>
-              <tr>
-                <th>From</th>
-                <th>To</th>
-                <th>Departure Time</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-                {
-                  timetable.map((departure, index) => (
-                    <tr key={index}>
-                      <td>
-                        <select
-                          value={departure.from}
-                          onChange={(e) => this.onChangeDepartureFrom(e, index)}
-                        >
-                        <option disabled default value> -- from -- </option>
-                        {
-                          endpoints.map((endpoint, index) => (
-                            <option key={index} value={index}>{endpoint.name}</option>
-                          ))
-                        }
-                        </select>
-                      </td>
-                      <td>
-                        <select
-                          value={departure.to}
-                          onChange={(e) => this.onChangeDepartureTo(e, index)}
-                        >
-                        <option disabled default value> -- to -- </option>
-                        {
-                          endpoints.map((endpoint, index) => (
-                            <option key={index} value={index}>{endpoint.name}</option>
-                          ))
-                        }
-                        </select>
-                      </td>
-                      <td>
-                        <input 
-                          type="text"
-                          value={departure.departureTime}
-                          onChange={(e) => this.onChangeDepartureTime(e, index)}
-                        />
-                      </td>
-                      <td>
-                        <button onClick={() => this.moveDepartureUp(index)}>&uarr;</button>
-                        <button onClick={() => this.moveDepartureDown(index)}>&darr;</button>
-                      </td>
-                    </tr>
-                  ))
-                }
-            </tbody>
-          </table>
-          <button onClick={this.onCreateDeparture}>Add departure</button>
-        </div>
+        <Departures
+          timetable={timetable}
+          endpoints={endpoints}
+          onCreateDeparture={this.onCreateDeparture}
+          onChangeFrom={this.onChangeDepartureFrom}
+          onChangeTime={this.onChangeDepartureTime}
+          onChangeTo={this.onChangeDepartureTo}
+        />
         <div>
           <table>
             <thead>
