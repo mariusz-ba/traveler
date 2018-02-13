@@ -4,6 +4,7 @@ import axios from 'axios';
 // Editors
 import Endpoints from './editors/Endpoints';
 import Departures from './editors/Departures';
+import Stops from './editors/Stops';
 
 export default class CarrierNew extends Component {
   state = {
@@ -88,37 +89,60 @@ export default class CarrierNew extends Component {
   }
 
   // Stops handlers
-  onChangeStop(e, index) {
+  onCreateStop = () => {
+    this.setState({
+      stops: [
+        ...this.state.stops,
+        this.state.stopsHolder[0]._id
+      ]
+    })
+  }
+
+  onDeleteStop = (index) => {
     this.setState({
       stops: [
         ...this.state.stops.slice(0, index),
-        e.target.value,
         ...this.state.stops.slice(index + 1)
       ]
     })
   }
 
-  addStop = () => {
+  onChangeStop = (index, stop)  =>{
     this.setState({
       stops: [
-        ...this.state.stops,
-        ''
+        ...this.state.stops.slice(0, index),
+        stop,
+        ...this.state.stops.slice(index + 1)
       ]
     })
   }
 
-  onMoveStopUp(index) {
-
+  onMoveStopUp = (index) => {
+    if(index === 0) return;
+    this.setState({
+      stops: [
+        ...this.state.stops.slice(0, index - 1),
+        this.state.stops[index],
+        this.state.stops[index - 1],
+        ...this.state.stops.slice(index + 1)
+      ]
+    })
   }
-  onMoveStopDown(index) {
 
-  }
-  deleteStop(index) {
-
+  onMoveStopDown = (index) => {
+    if(index === this.state.stops.length - 1) return;
+    this.setState({
+      stops: [
+        ...this.state.stops.slice(0, index),
+        this.state.stops[index + 1],
+        this.state.stops[index],
+        ...this.state.stops.slice(index + 2)
+      ]
+    })
   }
 
   render() {
-    const { name, endpoints, timetable, stops } = this.state;
+    const { name, endpoints, timetable, stops, stopsHolder } = this.state;
 
     return (
       <div className="newcarrier">
@@ -145,42 +169,15 @@ export default class CarrierNew extends Component {
           onChangeTime={this.onChangeDepartureTime}
           onChangeTo={this.onChangeDepartureTo}
         />
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Stop</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                stops.map((stop, index) => (
-                  <tr key={index}>
-                    <td>
-                      <select
-                        value={stop}
-                        onChange={(e) => this.onChangeStop(e, index)}
-                      >
-                        {
-                          this.state.stopsHolder.map(stop => (
-                            <option key={stop._id} value={stop._id}>{stop.name}</option>
-                          ))
-                        }
-                      </select>
-                    </td>
-                    <td>
-                      <button onClick={() => this.deleteStop(index)}>Delete</button>
-                      <button onClick={() => this.onMoveStopUp(index)}>&uarr;</button>
-                      <button onClick={() => this.onMoveStopDown(index)}>&darr;</button>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          <button onClick={this.addStop}>Add stop</button>
-        </div>
+        <Stops
+          stops={stops}
+          stopsCache={stopsHolder}
+          onCreateStop={this.onCreateStop}
+          onDeleteStop={this.onDeleteStop}
+          onChangeStop={this.onChangeStop}
+          onMoveDown={this.onMoveStopDown}
+          onMoveUp={this.onMoveStopUp}
+        />
       </div>
     )
   }
