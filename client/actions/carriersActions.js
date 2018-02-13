@@ -68,6 +68,18 @@ export const deletedCarrier = (id) => ({
 });
 
 /**
+ * Use this action to create new carriers
+ * @param {Object} carrier New carrier data
+ */
+export const createCarrier = (carrier) => {
+  return dispatch => {
+    return axios.post(`/api/carriers`, carrier)
+      .then(response => dispatch(receiveCarrier(response.data)))
+      .catch(err => dispatch(setCarriersErrors(err.response.data)));
+  }
+}
+
+/**
  * Use this action to set errors that occurred while
  * doing some stuff with carriers data.
  * 

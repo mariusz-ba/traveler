@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { createCarrier } from '../../../actions/carriersActions';
+import { pick } from 'lodash';
 import axios from 'axios';
 
 // Editors
@@ -6,7 +9,7 @@ import Endpoints from './editors/Endpoints';
 import Departures from './editors/Departures';
 import Stops from './editors/Stops';
 
-export default class CarrierNew extends Component {
+class CarrierNew extends Component {
   state = {
     name: '',
     endpoints: [],
@@ -54,7 +57,7 @@ export default class CarrierNew extends Component {
   onCreateDeparture = () => {
     const { endpoints } = this.state;
     const timetable = this.state.timetable.slice(0);
-    timetable.push({ from: 0, to: 1, departureTime: '18:30' });
+    timetable.push({ day: 1, from: 0, to: 1, departureTime: '18.30' });
 
     this.setState({
       timetable
@@ -141,6 +144,11 @@ export default class CarrierNew extends Component {
     })
   }
 
+  // Creating carrier
+  onCreateCarrier = () => {
+    this.props.createCarrier(pick(this.state, ['name', 'stops', 'timetable', 'endpoints']));
+  }
+
   render() {
     const { name, endpoints, timetable, stops, stopsHolder } = this.state;
 
@@ -178,7 +186,10 @@ export default class CarrierNew extends Component {
           onMoveDown={this.onMoveStopDown}
           onMoveUp={this.onMoveStopUp}
         />
+        <button onClick={this.onCreateCarrier}>Create Carrier</button>
       </div>
     )
   }
 }
+
+export default connect(null, { createCarrier })(CarrierNew);

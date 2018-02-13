@@ -18,9 +18,10 @@ const CarrierSchema = new Schema({
     stop: { type: Schema.Types.ObjectId, required: true, ref: 'Stop'}
   }],
   timetable: [{
+    day: { type: Number, required: true, default: 1 }, // 0 - Sunday, 6 - Saturday
     from: { type: Number, required: true, default: 0 },
     to: { type: Number, required: true, default: 1 },
-    departureTime: { type: Date, required: true }
+    departureTime: { type: Number, required: true }
   }],
   stops: [{ type: Schema.Types.ObjectId, ref: 'Stop' }]
 });
