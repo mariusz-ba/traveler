@@ -4,6 +4,11 @@ import { fetchCarriers, deleteCarrier } from '../../../actions/carriersActions';
 import { Link } from 'react-router-dom';
 
 class CarriersList extends Component {
+
+  componentDidMount() {
+    this.props.fetchCarriers();
+  }
+
   render() {
     const { items } = this.props.carriers;
 
@@ -31,7 +36,7 @@ class CarriersList extends Component {
                     <td>{carrier.endpoints[1].name}</td>
                     <td>
                       <button>Browse</button>
-                      <button>Delete</button>
+                      <button onClick={() => this.props.deleteCarrier(carrier._id)}>Delete</button>
                     </td>
                   </tr>
                 ))

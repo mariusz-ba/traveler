@@ -91,6 +91,15 @@ class CarrierNew extends Component {
     })
   }
 
+  onChangeDepartureDay = (index, day) => {
+    const timetable = this.state.timetable.slice(0);
+    timetable[index].day = day;
+
+    this.setState({
+      timetable
+    })
+  }
+
   // Stops handlers
   onCreateStop = () => {
     this.setState({
@@ -154,7 +163,6 @@ class CarrierNew extends Component {
 
     return (
       <div className="newcarrier">
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
         <div> {/* Basic details */}
           <input 
             type="text" 
@@ -176,6 +184,7 @@ class CarrierNew extends Component {
           onChangeFrom={this.onChangeDepartureFrom}
           onChangeTime={this.onChangeDepartureTime}
           onChangeTo={this.onChangeDepartureTo}
+          onChangeDay={this.onChangeDepartureDay}
         />
         <Stops
           stops={stops}

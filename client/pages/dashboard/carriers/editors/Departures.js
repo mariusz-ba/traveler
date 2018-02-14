@@ -19,7 +19,9 @@ export default class Departures extends Component {
     /** Function that is invoked every time second endpoint is edited */
     onChangeTo: PropTypes.func.isRequired,
     /** Function that is invoked every time departure time is edited */
-    onChangeTime: PropTypes.func.isRequired
+    onChangeTime: PropTypes.func.isRequired,
+    /** Function that is invoked every time departure day is edited */
+    onChangeDay: PropTypes.func.isRequired
   }
 
   // New departure has been created
@@ -42,6 +44,11 @@ export default class Departures extends Component {
     this.props.onChangeTime(index, event.target.value);
   }
 
+  // Day has hanged
+  _onChangeDay(event, index) {
+    this.props.onChangeDay(index, event.target.value);
+  }
+
   render() {
     const { timetable, endpoints } = this.props;
 
@@ -50,11 +57,15 @@ export default class Departures extends Component {
       <option key={index} value={index}>{endpoint.name}</option>
     ));
 
+    // Days
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
     return (
       <div>
         <table>
           <thead>
             <tr>
+              <th>Day</th>
               <th>From</th>
               <th>To</th>
               <th>Departure Time</th>
@@ -64,6 +75,17 @@ export default class Departures extends Component {
           {
             timetable.map((departure, index) => (
               <tr key={index}>
+                <td>
+                  <select
+                    value={departure.day}
+                    onChange={(e) => this._onChangeDay(e, index)}>
+                    {
+                      days.map((day, index) => (
+                        <option value={index}>{day}</option>
+                      ))
+                    }
+                  </select>
+                </td>
                 <td> {/* From */}
                   <select
                     value={departure.from}
