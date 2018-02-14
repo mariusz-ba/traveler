@@ -8,7 +8,7 @@ import * as TYPES from './constants/carrierConstants';
 export const fetchCarrier = (id) => {
   return dispatch => {
     dispatch(requestCarrier(id));
-    return axios.get(`/api/carrier/${id}`)
+    return axios.get(`/api/carriers/${id}`)
       .then(response => dispatch(receiveCarrier(response.data)))
       .catch(err => dispatch(setCarriersErrors(err.response.data)));
   }
