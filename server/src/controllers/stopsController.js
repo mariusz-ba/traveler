@@ -1,11 +1,27 @@
 // Module dependencies
 import Stop from '../models/stop';
+import Carrier from '../models/carrier';
 
 export const getStops = (req, res, next) => {
-  // req.body contains filter object
-  Stop.find({})
-    .then(stops => res.status(200).json(stops))
-    .catch(err => next(err));
+  // req.query contains filter object
+  // {
+  //   carrier: id - return only stops used by this carrier
+  // }
+  if(req.query.carrier) {
+    Carrier.findById(req.query.carrier, { stops: 1 })
+      .populate({ path: 'stops', select: ['name', 'lat', 'lng'] })
+      .then(carrier => {
+        if(carrier)
+          res.status(200).json(carrier.stops);
+        else
+          res.status(404).json({ error: 'No such stops' });
+      })
+      .catch(err => next(err));
+  } else {
+    Stop.find({})
+      .then(stops => res.status(200).json(stops))
+      .catch(err => next(err));
+  }
 }
 
 export const getStop = (req, res, next) => {
