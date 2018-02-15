@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
-
-import Map from '../components/map/Map';
-
-import Carrier from './carriers/Carrier';
-import CarriersList from './carriers/CarriersList';
-import LocalCarriers from './carriers/LocalCarriers';
-
-import Toolbar from '../components/toolbar/Toolbar';
+import { Link } from 'react-router-dom';
 
 export default class Home extends Component {
+  onSearch = (event) => {
+    event.preventDefault();
+  }
+
   render() {
     return (
-      <div className="home-container">
-        <Toolbar/>
-        <div className="home-layout">
-          <div className="home-left">
-            <Switch>
-              <Route exact path="/" component={LocalCarriers}/>
-              <Route exact path="/carriers" component={CarriersList}/>
-              <Route path="/carriers/:id" component={Carrier}/>
-            </Switch>
-          </div>
-          <div className="home-right">
-            <Map/>
-          </div>
+      <div className="home">
+        <div className="home__wrapper">
+          <nav className="home__navigation">
+            <Link to="/schedules"><i class="fas fa-bus"></i><span>Schedules</span></Link>
+            <Link to="/settigns"><i class="fas fa-cogs"></i><span>Settings</span></Link>
+          </nav>
+          <form>
+            <input type="text" placeholder="From"/>
+            <input type="text" placeholder="To"/>
+            <button type="submit" onClick={this.onSearch}>
+              <i class="fas fa-search"></i> Search
+            </button>
+          </form>
         </div>
       </div>
     )

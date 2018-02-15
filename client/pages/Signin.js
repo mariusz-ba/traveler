@@ -35,25 +35,24 @@ class Signin extends Component {
     const errorClass = errors && errors.form ? 'error' : '';
 
     return (
-      <div className="signin-container">
-        <div className="signin">
-          <form className="signin__form">
+      <div>
+        <div>
+          <form>
             <input
-              className={`signin__form--identifier ${errorClass}`}
+              className={errorClass}
               type="text" 
               placeholder="Username of E-mail"
               value={identifier}
               onChange={this.onChangeIdentifier}
             />
             <input
-              className={`signin__form--password ${errorClass}`}
+              className={errorClass}
               type="password" 
               placeholder="Password"
               value={password}
               onChange={this.onChangePassword}
             />
             <button
-              className="signin__form--submit"
               type="submit" 
               onClick={this.onSubmit}>Sign in</button>
           </form>

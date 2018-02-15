@@ -1,29 +1,109 @@
-.home-container {
-  flex: 1;
+.home {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background: #0A70D2;
+
+  .home__wrapper {
+    width: 768px;
+
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 50px;
+
+    .home__navigation {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 100px;
+      grid-column-gap: 20px;
+
+      a {
+        padding: 10px;
+        text-decoration: none;
+        background: #FFE900;
+        color: #0A70D2;
+        font-weight: bold;
+        border-radius: 3px;
+        text-align: center;
+
+        display: grid;
+        grid-template-areas: "a b";
+        grid-column-gap: 10px;
+
+        i {
+          font-size: 1.5em;
+          text-align: right;
+          grid-area: a;
+          align-self: center;
+        }
+
+        span {
+          text-align: left;
+          grid-area: b;
+          align-self: center;
+        }
+
+        &:hover {
+          background: #F0DC00;
+        }
+      }
+    }
+
+    form {
+      input, button {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        padding: 10px;
+
+        border: 0;
+        border-radius: 3px;
+        outline: 0;
+        background: transparent;
+        color: #fff;
+      }
+
+      input {
+        margin-bottom: 20px;
+        background: #287FD4;
+        transition: 0.3s linear all;
+
+        &:focus {
+          box-shadow: inset 0 0 2px #044079;
+        }
+
+        &::placeholder {
+          color: #5095D8;
+        }
+      }
+
+      button {
+        background: #06529C;
+        transition: 0.1s linear all;
+
+        &:hover {
+          cursor: pointer;
+          background: #044079;
+        }
+      }
+    }
+  }
 }
 
-.home-layout {
-  height: 100%;
-  display: grid;
-  grid-template-areas: "content map";
-  grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr;
-  
-  .home-left {
-    grid-area: content;
-    overflow-y: auto;
-  }
+@media screen and (max-width: 768px) {
+  .home {
+    .home__wrapper {
+      width: 83.3333%;
 
-  .home-right {
-    grid-area: map;
-  }
-}
+      .home__navigation {
+        a {
+          grid-template-areas: "a"
+                               "b";
 
-// Use slightly bigger brakpoint for that
-@media only screen and (max-width: 320px) {
-  .home-layout {
-    grid-template-areas: "content content";
+          i, span { text-align: center; }
+        }
+      }
+    } 
   }
 }

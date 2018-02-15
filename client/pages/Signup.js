@@ -47,7 +47,7 @@ class Signup extends Component {
   render() {
     const { username, email, password, confirm, errors } = this.state;
     return (
-      <div className="signup-container">
+      <div>
       { errors &&
         Object.keys(errors).map((error, index) => <p key={index}>{errors[error]}</p>)
       }
