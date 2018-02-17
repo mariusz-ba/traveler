@@ -10,14 +10,14 @@ export default withRouter(class extends Component {
       <div className="schedules">
         <main>
           <nav className="schedules__navbar">
-            <button onClick={() => this.props.history.goBack()}><i class="fas fa-arrow-left"></i></button>
+            <button onClick={() => this.props.history.goBack()}><i className="fas fa-arrow-left"></i></button>
           </nav>
           <Switch>
             <Route exact  path={this.props.match.path}          component={Schedules}/>
             <Route        path={`${this.props.match.path}/:id`} component={Schedule}/>
           </Switch>
         </main>
-        <aside>
+        <aside className="map">
           map
         </aside>
       </div>
